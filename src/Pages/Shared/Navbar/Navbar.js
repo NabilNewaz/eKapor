@@ -17,7 +17,7 @@ const Navbar = () => {
                             <li><Link to='/'>About</Link></li>
                         </ul>
                     </div>
-                    <Link to='/' className="ml-1 text-2xl md:hidden font-bold flex items-center normal-case"><GiLoincloth />eKapor</Link>
+                    <Link to='/' className="ml-2 text-2xl md:hidden font-bold flex items-center normal-case"><GiLoincloth />eKapor</Link>
                 </div>
                 <div className="navbar-center hidden md:block">
                     <Link to='/' className="font-bold text-3xl flex items-center normal-case"><GiLoincloth />eKapor</Link>
@@ -29,27 +29,25 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end hidden">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img src="https://placeimg.com/80/80/people" />
+                                <img src="https://placeimg.com/80/80/people" alt='' />
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li>
-                                <a className="justify-between">
+                                <Link className="justify-between">
                                     Profile
                                     <span className="badge">New</span>
-                                </a>
+                                </Link>
                             </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li><Link>Settings</Link></li>
+                            <li><Link>Logout</Link></li>
                         </ul>
                     </div>
-                    <div className='flex'>
-                        <div>
-                            <Link to='/login' className="btn btn-outline">Login</Link>
-                        </div>
-                        <div className='ml-1'>
-                            <Link className="btn btn-outline">SignUP</Link>
-                        </div>
+                    <div>
+                        <Link to='/login' className="btn btn-outline">Login</Link>
+                    </div>
+                    <div className='ml-1'>
+                        <Link className="btn btn-outline">SignUP</Link>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { GiLoincloth } from "react-icons/gi";
 
 const Footer = () => {
     return (
-        <div className='px-2 mt-3 mb-3'>
+        <div className='px-2 mt-5 pb-2'>
             <footer className="footer rounded-lg p-10 bg-base-200 text-base-content">
                 <div>
                     <GiLoincloth className='text-5xl' />

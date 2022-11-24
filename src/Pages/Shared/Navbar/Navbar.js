@@ -1,17 +1,39 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { GiLoincloth } from "react-icons/gi";
+import toast, { Toaster } from 'react-hot-toast';
+import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
 
 const Navbar = () => {
+    const location = useLocation();
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast.success('Successfully Sign Out');
+            })
+            .catch(error => {
+                const onlyErrMsg = error.message.slice(22, error.message.length - 2);
+                const processErrMsg = onlyErrMsg.split('-');
+                for (let i = 0; i < processErrMsg.length; i++) {
+                    processErrMsg[i] = processErrMsg[i].charAt(0).toUpperCase() + processErrMsg[i].slice(1);
+                }
+                const finalMsg = processErrMsg.join(" ");
+                toast.error(finalMsg);
+            });
+    }
+
     return (
         <div>
+            <Toaster />
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost btn-circle">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-0.5">
                             <li><Link to='/'>Homepage</Link></li>
                             <li><Link to='/'>Portfolio</Link></li>
                             <li><Link to='/'>About</Link></li>
@@ -26,13 +48,13 @@ const Navbar = () => {
                     <button className="btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost mr-1 btn-circle hidden md:flex">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </button>
-                    <div className="dropdown dropdown-end hidden">
+                    <div className={user?.uid ? 'dropdown dropdown-end' : 'hidden'}>
                         <label tabIndex={0} className="btn btn-ghost hover:bg-base-content hover:text-base-200 btn-active btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <img src="https://placeimg.com/80/80/people" alt='' />
                             </div>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-0.5">
                             <li>
                                 <Link className="justify-between">
                                     Profile
@@ -40,14 +62,15 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li><Link>Settings</Link></li>
-                            <li><Link>Logout</Link></li>
+                            <hr />
+                            <li><button onClick={handleLogOut} to='/'>Logout</button></li>
                         </ul>
                     </div>
-                    <div>
-                        <NavLink to='/login' className={({ isActive }) => isActive ? 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost bg-base-content text-base-200' : 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost'}>Login</NavLink>
+                    <div className={user?.uid ? 'hidden' : 'block'}>
+                        <NavLink to='/login' state={{ from: location }} replace className={({ isActive }) => isActive ? 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost bg-base-content text-base-200' : 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost'}>Login</NavLink>
                     </div>
-                    <div className='ml-1'>
-                        <NavLink to='/signup' className={({ isActive }) => isActive ? 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost bg-base-content text-base-200' : 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost'}>SignUP</NavLink>
+                    <div className={user?.uid ? 'hidden' : 'block ml-1'}>
+                        <NavLink to='/signup' state={{ from: location }} replace className={({ isActive }) => isActive ? 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost bg-base-content text-base-200' : 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost'}>SignUP</NavLink>
                     </div>
                 </div>
             </div>

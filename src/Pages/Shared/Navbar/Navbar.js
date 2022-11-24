@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { GiLoincloth } from "react-icons/gi";
 
 const Navbar = () => {
@@ -27,7 +27,7 @@ const Navbar = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </button>
                     <div className="dropdown dropdown-end hidden">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                        <label tabIndex={0} className="btn btn-ghost hover:bg-base-content hover:text-base-200 btn-active btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <img src="https://placeimg.com/80/80/people" alt='' />
                             </div>
@@ -44,10 +44,10 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div>
-                        <Link to='/login' className="btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost">Login</Link>
+                        <NavLink to='/login' className={({ isActive }) => isActive ? 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost bg-base-content text-base-200' : 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost'}>Login</NavLink>
                     </div>
                     <div className='ml-1'>
-                        <Link className="btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost">SignUP</Link>
+                        <NavLink to='/signup' className={({ isActive }) => isActive ? 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost bg-base-content text-base-200' : 'btn bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost'}>SignUP</NavLink>
                     </div>
                 </div>
             </div>

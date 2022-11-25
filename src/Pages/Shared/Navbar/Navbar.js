@@ -9,8 +9,6 @@ const Navbar = () => {
     const location = useLocation();
     const { user, logOut } = useContext(AuthContext);
 
-    console.log(location.pathname.slice(1, 10))
-
     const handleLogOut = () => {
         logOut()
             .then(() => {
@@ -62,13 +60,14 @@ const Navbar = () => {
                                 <img src={user?.photoURL ? user?.photoURL : 'https://i.ibb.co/X2xMzwL/defultuser.png'} alt='' />
                             </div>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box gap-0.5">
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box gap-1">
                             <li>
                                 <div className='flex flex-col gap-0 justify-start bg-base-300'>
                                     <p className='font-bold text-warp'>{user?.displayName}</p>
                                     <p>{user?.email}</p>
                                 </div>
                             </li>
+                            <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
                             <li>
                                 <Link className="justify-between">
                                     Profile

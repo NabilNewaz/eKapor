@@ -51,10 +51,16 @@ const Navbar = () => {
                     <div className={user?.uid ? 'dropdown dropdown-end' : 'hidden'}>
                         <label tabIndex={0} className="btn btn-ghost hover:bg-base-content hover:text-base-200 btn-active btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img src="https://placeimg.com/80/80/people" alt='' />
+                                <img src={user?.photoURL ? user?.photoURL : 'https://i.ibb.co/X2xMzwL/defultuser.png'} alt='' />
                             </div>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-0.5">
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box gap-0.5">
+                            <li>
+                                <div className='flex flex-col gap-0 justify-start bg-base-300'>
+                                    <p className='font-bold text-warp'>{user?.displayName}</p>
+                                    <p>{user?.email}</p>
+                                </div>
+                            </li>
                             <li>
                                 <Link className="justify-between">
                                     Profile

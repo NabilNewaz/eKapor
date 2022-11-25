@@ -7,6 +7,7 @@ const ClothesCategories = () => {
 
     const { isLoading, data: categories = [] } = useQuery({
         queryKey: ['categories'],
+        meta: { headers: { authorization: `Bearer ${localStorage.getItem('token')}` } },
         queryFn: () => fetch('http://localhost:5000/categories')
             .then(res => res.json())
     })
@@ -20,7 +21,7 @@ const ClothesCategories = () => {
             <div className={isLoading ? 'block' : 'hidden'}>
                 <Spinner></Spinner>
             </div>
-            <div className='grid gap-3 lg:grid-cols-4 md:grid-cols-3'>
+            <div className='grid gap-3 lg:grid-cols-4 md:grid-cols-2'>
                 {categories.map(category =>
                     <>
                         <Link to={`/category/${category._id}`}>

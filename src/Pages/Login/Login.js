@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/Authprovider/Authprovider';
 
 const Login = () => {
-    const { providerLogin, signIn, errorMsgToast, user } = useContext(AuthContext);
+    const { providerLogin, signIn, errorMsgToast, user, logOut } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
     const navigate = useNavigate();
@@ -32,10 +32,33 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(user);
                         localStorage.setItem('token', data.token);
-                        toast.success('Successfully Sign In')
-                        navigate(from, { replace: true });
+                        const userData = {
+                            uid: user.uid,
+                            displayName: user.displayName,
+                            email: user.email,
+                            role: 'buyer'
+                        }
+                        fetch('http://localhost:5000/create-user', {
+                            method: 'POST',
+                            headers: {
+                                authorization: `Bearer ${localStorage.getItem('token')}`,
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(userData)
+                        })
+                            .then((response) => {
+                                if (response.status === 401 || response.status === 403) {
+                                    logOut();
+                                    toast.error('Token Invalid! Login Again')
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log(user);
+                                toast.success('Successfully Sign In')
+                                navigate(from, { replace: true });
+                            })
                     })
             })
             .catch(error => errorMsgToast(error));
@@ -59,8 +82,32 @@ const Login = () => {
                     .then(data => {
                         console.log(data);
                         localStorage.setItem('token', data.token);
-                        toast.success('Successfully Sign In')
-                        navigate(from, { replace: true });
+                        const userData = {
+                            uid: user.uid,
+                            displayName: user.displayName,
+                            email: user.email,
+                            role: 'buyer'
+                        }
+                        fetch('http://localhost:5000/create-user', {
+                            method: 'POST',
+                            headers: {
+                                authorization: `Bearer ${localStorage.getItem('token')}`,
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(userData)
+                        })
+                            .then((response) => {
+                                if (response.status === 401 || response.status === 403) {
+                                    logOut();
+                                    toast.error('Token Invalid! Login Again')
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log(user);
+                                toast.success('Successfully Sign In')
+                                navigate(from, { replace: true });
+                            })
                     })
             })
             .catch(error => errorMsgToast(error));
@@ -79,7 +126,7 @@ const Login = () => {
                 const currentUser = {
                     uid: user.uid
                 }
-                fetch('https://b6a11-service-review-server-side-nabil-newaz.vercel.app/jwt', {
+                fetch('http://localhost:5000/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -105,17 +152,17 @@ const Login = () => {
                     <label className="label">
                         <span className="label-text font-semibold">Your Email</span>
                     </label>
-                    <input name='email' type="email" placeholder="name@gmail.com" className="input input-bordered w-full" />
+                    <input name='email' type="email" required placeholder="name@gmail.com" className="input input-bordered w-full" />
                 </div>
                 <div className="form-control w-full mx-auto max-w-md">
                     <label className="label">
                         <span className="label-text font-semibold">Your Password</span>
                     </label>
-                    <input name='password' type="password" placeholder="************" className="input input-bordered w-full" />
+                    <input name='password' type="password" required placeholder="************" className="input input-bordered w-full" />
                 </div>
                 <div className="form-control  mx-auto max-w-md mt-3">
                     <label className="flex items-center cursor-pointer">
-                        <input type="checkbox" className="checkbox" /><span className="label-text ml-2">Remember me</span>
+                        <input type="checkbox" required className="checkbox" /><span className="label-text ml-2">Remember me</span>
                     </label>
                 </div>
                 <div className='mt-3 flex justify-center'>
@@ -128,7 +175,7 @@ const Login = () => {
                 <hr className='border mt-2 border-base-300'></hr>
             </div>
             <div className='flex mt-3 max-w-md mx-auto'>
-                <button onClick={handleGoogleSignIn} type="button" className="text-white w-full bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
+                <button onClick={handleGoogleSignIn} type="button" className="text-white flex justify-center w-full bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
                     <svg className="mr-2 -ml-1 w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
                     Sign in with Google
                 </button>

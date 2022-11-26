@@ -142,8 +142,34 @@ const Login = () => {
                     .then(data => {
                         console.log(data);
                         localStorage.setItem('token', data.token);
-                        toast.success('Successfully Sign In')
-                        navigate(from, { replace: true });
+                        const userData = {
+                            uid: user.uid,
+                            displayName: user.displayName,
+                            email: user.email,
+                            img: user.photoURL,
+                            role: 'buyer',
+                            isVerified: false
+                        }
+                        fetch('http://localhost:5000/create-user', {
+                            method: 'POST',
+                            headers: {
+                                authorization: `Bearer ${localStorage.getItem('token')}`,
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(userData)
+                        })
+                            .then((response) => {
+                                if (response.status === 401 || response.status === 403) {
+                                    logOut();
+                                    toast.error('Token Invalid! Login Again')
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log(user);
+                                toast.success('Successfully Sign In')
+                                navigate(from, { replace: true });
+                            })
                     })
             })
             .catch(error => errorMsgToast(error));

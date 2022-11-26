@@ -1,6 +1,55 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
+import { MdVerified } from "react-icons/md";
+import { GoUnverified } from "react-icons/go";
 
 const AllSeller = () => {
+    const { logOut } = useContext(AuthContext);
+    const { data: allSellers = [], refetch } = useQuery({
+        queryKey: ['sellers'],
+        queryFn: () => axios
+            .get(`http://localhost:5000/sellers`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then((res) => res.data)
+            .catch(function (error) {
+                console.log(error.response.status);
+                if (error.response.status === 401 || error.response.status === 403) {
+                    logOut();
+                    toast.error('Token Invalid! Login Again')
+                }
+            })
+    })
+
+    const handleUserDelete = (userID) => {
+        console.log(userID)
+    }
+
+    const handleUserVerify = (userID) => {
+        console.log(userID)
+        axios.patch(`http://localhost:5000/verify-seller/${userID}`, {
+            isVerified: true
+        },
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        )
+            .then(function () {
+                refetch();
+                toast.success('Seller Verified')
+            })
+            .catch(function () {
+                toast.error('Something Went Wrong')
+            });
+    }
+
     return (
         <div className='pt-2 px-2'>
             <div>
@@ -11,141 +60,45 @@ const AllSeller = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>Phone Number</th>
+                            <th>Location</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center space-x-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle w-12 h-12">
-                                            <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
+                        {allSellers.map(seller =>
+                            <tr>
+                                <td>
+                                    <div className="flex items-center space-x-3">
+                                        <div className="avatar">
+                                            <div className="rounded-full w-12 h-12">
+                                                <img src={(seller.img) ? seller.img : 'https://i.ibb.co/X2xMzwL/defultuser.png'} alt=" " />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold flex items-center">{seller.displayName} <span className={(seller?.isVerified) ? 'block' : 'hidden'}><MdVerified className='ml-1 text-blue-600' /></span> <span className={(seller?.isVerified) ? 'hidden' : 'block'}><GoUnverified className='ml-1 text-amber-500' /></span></div>
+                                            <div className="text-sm opacity-50">{seller.email}</div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <div className="font-bold">Hart Hagerty</div>
-                                        <div className="text-sm opacity-50">United States</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Zemlak, Daniel and Leannon
-                                <br />
-                                <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                            </td>
-                            <td>Purple</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center space-x-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle w-12 h-12">
-                                            <img src="/tailwind-css-component-profile-3@56w.png" alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">Brice Swyre</div>
-                                        <div className="text-sm opacity-50">China</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Carroll Group
-                                <br />
-                                <span className="badge badge-ghost badge-sm">Tax Accountant</span>
-                            </td>
-                            <td>Red</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center space-x-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle w-12 h-12">
-                                            <img src="/tailwind-css-component-profile-4@56w.png" alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">Marjy Ferencz</div>
-                                        <div className="text-sm opacity-50">Russia</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Rowe-Schoen
-                                <br />
-                                <span className="badge badge-ghost badge-sm">Office Assistant I</span>
-                            </td>
-                            <td>Crimson</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center space-x-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle w-12 h-12">
-                                            <img src="/tailwind-css-component-profile-5@56w.png" alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">Yancy Tear</div>
-                                        <div className="text-sm opacity-50">Brazil</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Wyman-Ledner
-                                <br />
-                                <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-                            </td>
-                            <td>Indigo</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
+                                </td>
+                                <td>
+                                    {seller.phone ? seller.phone : 'XXXXXXXXXX'}
+                                </td>
+                                <td>{seller.location ? seller.location : 'Not Set Yet'}</td>
+                                <th>
+                                    <button disabled={seller.isVerified ? 'disabled' : null} onClick={() => handleUserVerify(seller.uid)} className='btn btn-error btn-xs text-white'>{(seller?.isVerified) ? 'Verified' : 'Verify'}</button>
+                                    <button onClick={() => handleUserDelete(seller.uid)} className="btn btn-error btn-xs text-white ml-2">Delete</button>
+                                </th>
+                            </tr>
+                        )}
+
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th></th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>Phone Number</th>
+                            <th>Location</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>

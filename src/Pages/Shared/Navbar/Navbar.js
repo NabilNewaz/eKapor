@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { GiLoincloth } from "react-icons/gi";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
 import { RiMenuUnfoldFill } from "react-icons/ri";
 
@@ -27,7 +27,6 @@ const Navbar = () => {
 
     return (
         <div>
-            <Toaster />
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
                     <div className="dropdown">

@@ -20,6 +20,7 @@ const Login = () => {
         providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
+                console.log(user)
                 const currentUser = {
                     uid: user.uid
                 }
@@ -37,7 +38,9 @@ const Login = () => {
                             uid: user.uid,
                             displayName: user.displayName,
                             email: user.email,
-                            role: 'buyer'
+                            img: user.photoURL,
+                            role: 'buyer',
+                            isVerified: false
                         }
                         fetch('http://localhost:5000/create-user', {
                             method: 'POST',
@@ -86,7 +89,9 @@ const Login = () => {
                             uid: user.uid,
                             displayName: user.displayName,
                             email: user.email,
-                            role: 'buyer'
+                            img: user.photoURL,
+                            role: 'buyer',
+                            isVerified: false
                         }
                         fetch('http://localhost:5000/create-user', {
                             method: 'POST',

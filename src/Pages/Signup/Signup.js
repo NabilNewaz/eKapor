@@ -35,7 +35,9 @@ const Signup = () => {
                             uid: user.uid,
                             displayName: user.displayName,
                             email: user.email,
-                            role: 'buyer'
+                            img: user.photoURL,
+                            role: 'buyer',
+                            isVerified: false
                         }
                         fetch('http://localhost:5000/create-user', {
                             method: 'POST',
@@ -83,7 +85,9 @@ const Signup = () => {
                             uid: user.uid,
                             displayName: user.displayName,
                             email: user.email,
-                            role: 'buyer'
+                            img: user.photoURL,
+                            role: 'buyer',
+                            isVerified: false
                         }
                         fetch('http://localhost:5000/create-user', {
                             method: 'POST',
@@ -145,7 +149,9 @@ const Signup = () => {
                                 uid: user.uid,
                                 displayName: fullName,
                                 email: user.email,
-                                role: userRole
+                                img: user.photoURL,
+                                role: userRole,
+                                isVerified: false
                             }
                             fetch('http://localhost:5000/create-user', {
                                 method: 'POST',

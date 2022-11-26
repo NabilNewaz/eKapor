@@ -8,11 +8,9 @@ import toast from 'react-hot-toast';
 
 const CategoryWiseProducts = () => {
     const { logOut } = useContext(AuthContext);
-
     const CategoryDetails = useLoaderData();
-
     const { data: products = [] } = useQuery({
-        queryKey: ['products'],
+        queryKey: ['products', CategoryDetails[0]._id],
         queryFn: () => axios
             .get(`http://localhost:5000/products/${CategoryDetails[0]._id}`, {
                 headers: {
@@ -52,7 +50,7 @@ const CategoryWiseProducts = () => {
                                     <p className='grow-0'><span>Original Price: </span>{product.product_originalPrice}</p>
                                     <p className='grow-0'><span>Use Time: </span>{product.product_useTime}</p>
                                     <p className='grow-0'><span>Location: </span>{product.product_location}</p>
-                                    <p className='grow-0 flex items-center'><span className='mr-1'>Seller: </span>{product.seller_details[0].displayName}<span className={(product.seller_details[0].isVerified) ? 'block' : 'hidden'}><MdVerified className='ml-1 text-blue-600' /></span></p>
+                                    <p className='grow-0 flex items-center'><span className='mr-1'>Seller: </span>{(product?.seller_details[0]?.displayName) ? product?.seller_details[0]?.displayName : 'No Seller Details'}<span className={(product?.seller_details[0]?.isVerified) ? 'block' : 'hidden'}><MdVerified className='ml-1 text-blue-600' /></span></p>
                                 </div>
                                 <div className="card-actions justify-end mt-5">
                                     <button className="btn btn-base-200 w-full">Book Now</button>

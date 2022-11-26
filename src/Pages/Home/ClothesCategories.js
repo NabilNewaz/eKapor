@@ -13,10 +13,10 @@ const ClothesCategories = () => {
     })
 
     return (
-        <div className='px-2 mt-5 mx-auto'>
+        <div className='px-2 mt-8 mx-auto'>
             <div className='mb-3'>
-                <h1 className='text-3xl uppercase font-bold text-center'>Clothes Categories</h1>
-                <p className='text-lg text-center'>Find Your Needed Clothes From Categories</p>
+                <h1 className='text-3xl uppercase font-bold'>Clothes Categories</h1>
+                <p className='text-md'>Find Your Needed Clothes From Categories</p>
             </div>
             <div className={isLoading ? 'block' : 'hidden'}>
                 <Spinner></Spinner>

@@ -27,11 +27,23 @@ const AllSeller = () => {
     })
 
     const handleUserDelete = (userID) => {
-        console.log(userID)
+        axios.delete(`http://localhost:5000/sellers/${userID}`,
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        )
+            .then(function () {
+                refetch();
+                toast.success('Seller Deleted')
+            })
+            .catch(function () {
+                toast.error('Something Went Wrong')
+            });
     }
 
     const handleUserVerify = (userID) => {
-        console.log(userID)
         axios.patch(`http://localhost:5000/verify-seller/${userID}`, {
             isVerified: true
         },
@@ -67,6 +79,11 @@ const AllSeller = () => {
                         </tr>
                     </thead>
                     <tbody>
+                        <tr className={(allSellers.length <= 0) ? ' ' : 'hidden'}>
+                            <th colSpan="4" className='py-10'>
+                                <p className='text-center text-xl text-gray-400'>No Seller Details</p>
+                            </th>
+                        </tr>
                         {allSellers.map(seller =>
                             <tr>
                                 <td>
@@ -94,14 +111,6 @@ const AllSeller = () => {
                         )}
 
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Phone Number</th>
-                            <th>Location</th>
-                            <th>Actions</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>

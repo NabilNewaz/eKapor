@@ -1,11 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
 
 const AllBuyers = () => {
-    const { logOut } = useContext(AuthContext);
     const [buyerDetails, setBuyerDetails] = useState({});
     let closeModalBtn = document.getElementById('modal-close');
     const closeMOdal = () => {
@@ -23,8 +21,7 @@ const AllBuyers = () => {
             .catch(function (error) {
                 console.log(error.response.status);
                 if (error.response.status === 401 || error.response.status === 403) {
-                    toast.error('You are not admin user')
-                    logOut();
+                    // logOut();
                 }
             })
     })

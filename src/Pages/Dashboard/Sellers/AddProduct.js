@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
 
 const AddProduct = () => {
-    const { user, logOut } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const imageHostKey = process.env.REACT_APP_imgbb_Key;
@@ -48,7 +48,9 @@ const AddProduct = () => {
                         "product_location": location,
                         "product_description": description,
                         "product_sellerID": user.uid,
-                        "product_postTime": new Date().getTime()
+                        "product_postTime": new Date().getTime(),
+                        "isAdvertised": false,
+                        "isBooked": false
                     },
                         {
                             headers: {
@@ -72,7 +74,7 @@ const AddProduct = () => {
     }
 
     const { data: catagorisName = [] } = useQuery({
-        queryKey: ['sellers'],
+        queryKey: ['categories-name'],
         queryFn: () => axios
             .get(`http://localhost:5000/categories-name`, {
                 headers: {
@@ -81,10 +83,9 @@ const AddProduct = () => {
             })
             .then((res) => res.data)
             .catch(function (error) {
-                console.log(error.response.status);
                 if (error.response.status === 401 || error.response.status === 403) {
-                    logOut();
-                    toast.error('You are not seller')
+                    // logOut();
+                    // toast.error('You are not seller')
                 }
             })
     })

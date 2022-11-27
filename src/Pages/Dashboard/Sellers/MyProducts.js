@@ -8,12 +8,18 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 const MyProducts = () => {
     const { logOut } = useContext(AuthContext);
     const [productDetails, setPeoductDetails] = useState({});
+    let isAdvertised;
+    // const [isAdvertised, setIsAdvertised] = useState(true);
     let closeDeleteModalBtn = document.getElementById('delete-modal-close');
     const closeDeleteModal = () => {
         closeDeleteModalBtn.click();
     }
+    let closeAdvertiseModalBtn = document.getElementById('advertise-modal-close');
+    const closeAdvertiseModal = () => {
+        closeAdvertiseModalBtn.click();
+    }
     const { data: myproducts = [], refetch } = useQuery({
-        queryKey: ['sellers'],
+        queryKey: ['my-products'],
         queryFn: () => axios
             .get(`http://localhost:5000/my-products`, {
                 headers: {
@@ -43,6 +49,34 @@ const MyProducts = () => {
                 refetch();
                 closeDeleteModal()
                 toast.success('Product Deleted')
+            })
+            .catch(function () {
+                toast.error('Something Went Wrong')
+            });
+    }
+
+    const handleAdvertiseData = (productID, prodactAdvertised) => {
+        if (prodactAdvertised) {
+            isAdvertised = false;
+            console.log(false)
+        }
+        else {
+            isAdvertised = true;
+            console.log(true)
+        }
+        axios.patch(`http://localhost:5000/peoduct-advertise/${productID}`, {
+            isAdvertised: isAdvertised
+        },
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        )
+            .then(function () {
+                refetch();
+                closeAdvertiseModal();
+                toast.success('Product Advertised')
             })
             .catch(function () {
                 toast.error('Something Went Wrong')
@@ -80,11 +114,30 @@ const MyProducts = () => {
                                     </label>
                                     <div className="p-6 text-center">
                                         <svg aria-hidden="true" className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this seller?</h3>
+                                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
                                         <button onClick={() => handleUserDelete(productDetails._id)} htmlFor="productdeleteConferm-modal" data-modal-toggle="popup-modal" type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                                             Yes, I'm sure
                                         </button>
                                         <label htmlFor="productdeleteConferm-modal" data-modal-toggle="popup-modal" type="button" className="cursor-pointer text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="productadvertiseConferm-modal" className="modal-toggle" />
+                            <div className="modal">
+                                <div className="modal-box">
+                                    <label id="advertise-modal-close" htmlFor="productadvertiseConferm-modal" type="button" className="cursor-pointer absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
+                                        <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                                        <span className="sr-only">Close modal</span>
+                                    </label>
+                                    <div className="p-6 text-center">
+                                        <svg aria-hidden="true" className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to advertise this product?</h3>
+                                        <button onClick={() => handleAdvertiseData(productDetails._id, productDetails?.isAdvertised)} htmlFor="productdeleteConferm-modal" data-modal-toggle="popup-modal" type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                            Yes, I'm sure
+                                        </button>
+                                        <label htmlFor="productadvertiseConferm-modal" data-modal-toggle="popup-modal" type="button" className="cursor-pointer text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</label>
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +182,7 @@ const MyProducts = () => {
                                         <td>{product.product_location}</td>
                                         <th>
                                             <th>
-                                                <label htmlFor="buyerverifyConferm-modal" disabled={product?.isVerified ? 'disabled' : null} className='btn btn-error btn-xs text-white'>{(product?.isVerified) ? 'Verified' : 'Verify'}</label>
+                                                <label onClick={() => setPeoductDetails(product)} htmlFor="productadvertiseConferm-modal" disabled={product.isBooked ? 'disabled' : null} className={product?.isAdvertised ? 'btn badge-warning btn-xs text-white' : 'btn badge-info btn-xs text-white'}>{(product?.isAdvertised) ? 'unavertised' : 'advertise'}</label>
                                                 <label onClick={() => setPeoductDetails(product)} htmlFor="productdeleteConferm-modal" className="btn btn-error btn-xs text-white ml-2">Delete</label>
                                             </th>
                                         </th>

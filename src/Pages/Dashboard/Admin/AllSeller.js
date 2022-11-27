@@ -1,13 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
 import { MdVerified } from "react-icons/md";
 import { GoUnverified } from "react-icons/go";
 
 const AllSeller = () => {
-    const { logOut } = useContext(AuthContext);
     const [sellerDetails, setSellerDetails] = useState({});
     let closeDeleteModalBtn = document.getElementById('delete-modal-close');
     let closeVerifyModalBtn = document.getElementById('verify-modal-close');
@@ -29,8 +27,8 @@ const AllSeller = () => {
             .catch(function (error) {
                 console.log(error.response.status);
                 if (error.response.status === 401 || error.response.status === 403) {
-                    logOut();
-                    toast.error('You are not admin user')
+                    // logOut();
+                    // toast.error('You Are Not Admin User')
                 }
             })
     })

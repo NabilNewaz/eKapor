@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
 
 const AddProduct = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const imageHostKey = process.env.REACT_APP_imgbb_Key;
 
@@ -55,6 +57,8 @@ const AddProduct = () => {
                         }
                     )
                         .then(function () {
+                            form.reset();
+                            navigate('/dashboard/my-products');
                             toast.success('Product Added Successfully')
                         })
                         .catch(function () {
@@ -68,12 +72,20 @@ const AddProduct = () => {
     }
 
     const { data: catagorisName = [] } = useQuery({
-        queryKey: ['products'],
+        queryKey: ['sellers'],
         queryFn: () => axios
-            .get(`http://localhost:5000/categories-name`)
+            .get(`http://localhost:5000/categories-name`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then((res) => res.data)
             .catch(function (error) {
-                toast.error('Something Went To Worng');
+                console.log(error.response.status);
+                if (error.response.status === 401 || error.response.status === 403) {
+                    logOut();
+                    toast.error('You are not seller')
+                }
             })
     })
 

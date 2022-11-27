@@ -17,7 +17,7 @@ const CategoryWiseProducts = () => {
         closeModalBtn.click();
     }
     const { data: userData = [] } = useQuery({
-        queryKey: ['products'],
+        queryKey: ['users'],
         queryFn: () => axios
             .get(`http://localhost:5000/users`, {
                 headers: {

@@ -7,11 +7,77 @@ import { AuthContext } from '../../Contexts/Authprovider/Authprovider';
 import toast from 'react-hot-toast';
 import { IoCall } from "react-icons/io5";
 import { MdReport } from "react-icons/md";
+import { useState } from 'react';
 
 const CategoryWiseProducts = () => {
     const { logOut } = useContext(AuthContext);
+    const [productDetails, setPeoductDetails] = useState({});
+    let closeModalBtn = document.getElementById('modal-close');
+    const closeMOdal = () => {
+        closeModalBtn.click();
+    }
+    const { data: userData = [] } = useQuery({
+        queryKey: ['products'],
+        queryFn: () => axios
+            .get(`http://localhost:5000/users`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then((res) => res.data)
+            .catch(function (error) {
+                console.log(error.response.status);
+                if (error.response.status === 401 || error.response.status === 403) {
+                    logOut();
+                    toast.error('Token Invalid! Login Again')
+                }
+            })
+    })
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const userID = userData.uid;
+        const userImg = userData.img;
+        const userName = form.userName.value;
+        const userEmail = form.userMail.value;
+        const userPhoneNumber = form.userPhoneNumber.value;
+        const meetingLocation = form.meetingLocation.value;
+
+        const bookedData = {
+            userID: userID,
+            userName: userName,
+            userEmail: userEmail,
+            userPhoneNumber: userPhoneNumber,
+            userImg: userImg,
+            meetingLocation: meetingLocation,
+            isPayment: false
+        }
+
+        axios.patch(`http://localhost:5000/product-booked/${productDetails._id}`, {
+            isBooked: true,
+            bookedData
+        },
+            {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }
+        )
+            .then(function () {
+                refetch();
+                toast.success('Product Booked')
+            })
+            .catch(function () {
+                toast.error('Something Went Wrong')
+            });
+
+        console.log(bookedData);
+        closeMOdal();
+    }
+
     const CategoryDetails = useLoaderData();
-    const { data: products = [] } = useQuery({
+    const { data: products = [], refetch } = useQuery({
         queryKey: ['products', CategoryDetails[0]._id],
         queryFn: () => axios
             .get(`http://localhost:5000/products/${CategoryDetails[0]._id}`, {
@@ -39,6 +105,60 @@ const CategoryWiseProducts = () => {
             <div className={(products.length <= 0) ? 'block' : 'hidden'}>
                 <p className='text-2xl font-semibold text-center text-slate-400 py-56'>No Products Found</p>
             </div>
+            <div>
+                <input type="checkbox" id="booknow-modal" className="modal-toggle" />
+                <div className="modal">
+                    <div className="modal-box">
+                        <label id="modal-close" htmlFor="booknow-modal" type="button" className="cursor-pointer absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
+                            <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            <span className="sr-only">Close modal</span>
+                        </label>
+                        <form onSubmit={handleSubmit}>
+                            <p className='bg-gray-800 px-2 py-1 text-white font-semibold w-fit rounded-lg'>Product Details</p>
+                            <div className="form-control w-full ">
+                                <label className="label">
+                                    <span className="label-text font-semibold">Product Name</span>
+                                </label>
+                                <input name='productName' value={productDetails.product_name} disabled type="productName" required className="input input-bordered w-full" />
+                            </div>
+                            <div className="form-control w-full ">
+                                <label className="label">
+                                    <span className="label-text font-semibold">Product Selling Price</span>
+                                </label>
+                                <input name='productPrice' disabled value={productDetails.product_resellPrice} type="productPrice" required className="input input-bordered w-full" />
+                            </div>
+                            <p className='bg-gray-800 px-2 py-1 text-white font-semibold w-fit rounded-lg mt-5'>User Details</p>
+                            <div className="form-control w-full ">
+                                <label className="label">
+                                    <span className="label-text font-semibold">User Name</span>
+                                </label>
+                                <input name='userName' value={userData.displayName} disabled type="productName" required className="input input-bordered w-full" />
+                            </div>
+                            <div className="form-control w-full ">
+                                <label className="label">
+                                    <span className="label-text font-semibold">User Mail</span>
+                                </label>
+                                <input name='userMail' disabled value={userData.email} type="productPrice" required className="input input-bordered w-full" />
+                            </div>
+                            <div className="form-control w-full ">
+                                <label className="label">
+                                    <span className="label-text font-semibold">User Phone</span>
+                                </label>
+                                <input name='userPhoneNumber' type="text" defaultValue={userData?.phoneNumber} required placeholder='Your Phone Number' className="input input-bordered w-full" />
+                            </div>
+                            <div className="form-control w-full ">
+                                <label className="label">
+                                    <span className="label-text font-semibold">Meeting Location</span>
+                                </label>
+                                <input name='meetingLocation' type="text" defaultValue={userData?.userLocation} placeholder='Meeting Location' required className="input input-bordered w-full" />
+                            </div>
+                            <div className='mt-3'>
+                                <button type="submit" className="btn w-full bg-base-300 hover:bg-base-content hover:text-base-200 btn-ghost">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-3'>
                 {products.map(product =>
                     <>
@@ -56,14 +176,14 @@ const CategoryWiseProducts = () => {
                                     <p className='grow-0'><span>Use Time: </span>{product.product_useTime}</p>
                                     <p className='grow-0'><span>Location: </span>{product.product_location}</p>
                                     <p className='grow-0 flex items-center'><span className='mr-1'>Seller: </span>{(product?.seller_details[0]?.displayName) ? product?.seller_details[0]?.displayName : 'No Seller Details'}<span className={(product?.seller_details[0]?.isVerified) ? 'block' : 'hidden'}><MdVerified className='ml-1 text-blue-600' /></span></p>
-                                    <p className='grow-0'><span>Description: </span>{product?.product_description}</p>
+                                    <p className='grow-0'><span>Description: </span>{product.product_description ? product.product_description : 'No Description Added'}</p>
 
                                 </div>
                                 <div className='mt-1 flex justify-end'>
                                     <button className="btn btn-xs btn-ghost btn-active flex items-center"><span className='text-lg'><MdReport /></span>Reported Item</button>
                                 </div>
                                 <div className="card-actions justify-end">
-                                    <button className="btn btn-base-200 w-full">Book Now</button>
+                                    <label onClick={() => setPeoductDetails(product)} htmlFor="booknow-modal" className="btn btn-base-200 w-full">Book Now</label>
                                 </div>
                             </div>
                         </div>

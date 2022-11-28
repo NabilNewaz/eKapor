@@ -66,13 +66,6 @@ const Navbar = () => {
                                 </div>
                             </li>
                             <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
-                            <li>
-                                <Link className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </Link>
-                            </li>
-                            <li><Link>Settings</Link></li>
                             <hr />
                             <li><button onClick={handleLogOut} to='/'>Logout</button></li>
                         </ul>

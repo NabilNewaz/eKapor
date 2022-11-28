@@ -92,9 +92,9 @@ const AdvertiseSection = () => {
     }
 
     return (
-        <div className='px-2 mt-8 mx-auto'>
+        <div className='px-2 mx-auto'>
             <div className={advertiseProducts.length <= 0 ? 'hidden' : 'mb-3'}>
-                <h1 className='text-3xl uppercase font-bold'>Advertise Products</h1>
+                <h1 className='text-3xl uppercase font-bold mt-8'>Advertise Products</h1>
                 <p className='text-md'>Find Your Needed Clothes From Those</p>
             </div>
             <div>

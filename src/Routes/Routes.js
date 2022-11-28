@@ -18,6 +18,7 @@ import AdminRoute from "./AdminRoute";
 import SellerRoute from "./SellerRoute";
 import BuyerRoute from "./BuyerRoute";
 import Blogs from "../Pages/Blogs/Blogs";
+import Notfound from "../Pages/Notfound/Notfound";
 
 const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
                 loader: ({ params }) => fetch(`http://localhost:5000/categories?category_id=${params.id}`),
                 element: <PrivateRoute><CategoryWiseProducts></CategoryWiseProducts></PrivateRoute>
             },
+            {
+                path: "*",
+                element: <Notfound></Notfound>
+            }
         ],
     },
     {
@@ -82,6 +87,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/reported-items',
                 element: <AdminRoute><ReportedItems></ReportedItems></AdminRoute>
+            },
+            {
+                path: "*",
+                element: <Notfound></Notfound>
             }
         ]
     }

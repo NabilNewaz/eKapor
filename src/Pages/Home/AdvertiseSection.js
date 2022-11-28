@@ -68,6 +68,7 @@ const AdvertiseSection = () => {
             userPhoneNumber: userPhoneNumber,
             userImg: userImg,
             meetingLocation: meetingLocation,
+            bookedTime: new Date().getTime(),
             isPayment: false
         }
 

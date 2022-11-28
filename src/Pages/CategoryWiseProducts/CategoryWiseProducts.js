@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { IoCall } from "react-icons/io5";
 import { MdReport } from "react-icons/md";
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const CategoryWiseProducts = () => {
     const { logOut } = useContext(AuthContext);
@@ -51,6 +52,7 @@ const CategoryWiseProducts = () => {
             userPhoneNumber: userPhoneNumber,
             userImg: userImg,
             meetingLocation: meetingLocation,
+            bookedTime: new Date().getTime(),
             isPayment: false
         }
 
@@ -97,6 +99,9 @@ const CategoryWiseProducts = () => {
 
     return (
         <div className='px-2'>
+            <Helmet>
+                <title>{CategoryDetails[0].category_name} Category - eKapor</title>
+            </Helmet>
             <div className='mb-8'>
                 <h1 className='text-2xl font-semibold uppercase'>Products For</h1>
                 <h1 className='font-bold text-3xl uppercase'>{CategoryDetails[0].category_name}</h1>

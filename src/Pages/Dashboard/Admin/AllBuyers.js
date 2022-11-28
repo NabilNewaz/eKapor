@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const AllBuyers = () => {
     const [buyerDetails, setBuyerDetails] = useState({});
@@ -46,6 +47,9 @@ const AllBuyers = () => {
 
     return (
         <div className='pt-2 px-2'>
+            <Helmet>
+                <title>All Buyers - Admin Dashboard - eKapor</title>
+            </Helmet>
             <div>
                 <p className='text-2xl uppercase font-semibold'>All Buyers</p>
                 <p className='mb-4 uppercase text-sm'>manage your buyers from here</p>

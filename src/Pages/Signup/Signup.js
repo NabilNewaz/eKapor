@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/Authprovider/Authprovider';
+import { Helmet } from 'react-helmet-async';
 
 const Signup = () => {
     const [checked, setChecked] = useState(false);
@@ -191,6 +192,9 @@ const Signup = () => {
 
     return (
         <div className='px-2 md:px-0'>
+            <Helmet>
+                <title>Sign Up - eKapor</title>
+            </Helmet>
             <h1 className='text-3xl text-center font-semibold uppercase'>Signup</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-control w-full mx-auto max-w-md">

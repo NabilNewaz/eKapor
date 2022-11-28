@@ -1,8 +1,12 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const MyBuyers = () => {
     return (
         <div className='pt-2 px-2'>
+            <Helmet>
+                <title>My Buyer - Seller Dashboard - eKapor</title>
+            </Helmet>
             <div>
                 <p className='text-2xl uppercase font-semibold'>My Buyers</p>
                 <p className='mb-4 uppercase text-sm'>manage your buyers from here</p>

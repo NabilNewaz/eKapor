@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Authprovider from './Contexts/Authprovider/Authprovider';
 import { Toaster } from 'react-hot-toast';
 import 'react-photo-view/dist/react-photo-view.css';
+import { HelmetProvider } from 'react-helmet-async';
 
 // Create a client
 const queryClient = new QueryClient()
@@ -14,12 +15,14 @@ const queryClient = new QueryClient()
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Authprovider>
-        <Toaster />
-        <App />
-      </Authprovider>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <Authprovider>
+          <Toaster />
+          <App />
+        </Authprovider>
+      </QueryClientProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 

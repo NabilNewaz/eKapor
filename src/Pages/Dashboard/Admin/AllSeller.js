@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { MdVerified } from "react-icons/md";
 import { GoUnverified } from "react-icons/go";
+import { Helmet } from 'react-helmet-async';
 
 const AllSeller = () => {
     const [sellerDetails, setSellerDetails] = useState({});
@@ -73,6 +74,9 @@ const AllSeller = () => {
 
     return (
         <div className='pt-2 px-2'>
+            <Helmet>
+                <title>All Sellers - Admin Dashboard - eKapor</title>
+            </Helmet>
             <div>
                 <p className='text-2xl uppercase font-semibold'>All Sellers</p>
                 <p className='mb-4 uppercase text-sm'>manage your sellers from here</p>

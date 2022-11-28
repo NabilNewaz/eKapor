@@ -4,6 +4,8 @@ import { AuthContext } from '../../Contexts/Authprovider/Authprovider';
 import useAdmin from '../../Hooks/useAdmin';
 import useBuyer from '../../Hooks/useBuyer';
 import useSeller from '../../Hooks/useSeller';
+import { Helmet } from 'react-helmet-async';
+
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -28,6 +30,11 @@ const Dashboard = () => {
         }, 50);
         return () => clearTimeout(timer);
     });
+    <div>
+        <Helmet>
+            <title>Dashboard - eKapor</title>
+        </Helmet>
+    </div>
 };
 
 export default Dashboard;

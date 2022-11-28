@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/Authprovider/Authprovider';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const { providerLogin, signIn, errorMsgToast, user, logOut } = useContext(AuthContext);
@@ -177,6 +178,9 @@ const Login = () => {
 
     return (
         <div className='px-2 md:px-0'>
+            <Helmet>
+                <title>Login - eKapor</title>
+            </Helmet>
             <h1 className='text-3xl text-center font-semibold uppercase'>Login</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-control w-full mx-auto max-w-md">

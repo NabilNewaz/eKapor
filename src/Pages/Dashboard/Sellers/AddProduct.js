@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
+import { Helmet } from 'react-helmet-async';
 
 const AddProduct = () => {
     const { user } = useContext(AuthContext);
@@ -92,6 +93,9 @@ const AddProduct = () => {
 
     return (
         <div className='pt-2 px-2'>
+            <Helmet>
+                <title>Add Product - Seller Dashboard - eKapor</title>
+            </Helmet>
             <div>
                 <p className='text-2xl uppercase font-semibold'>Add product</p>
                 <p className='mb-4 uppercase text-sm'>add your new items for sell</p>

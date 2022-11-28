@@ -1,8 +1,12 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const ReportedItems = () => {
     return (
         <div className='pt-2 px-2'>
+            <Helmet>
+                <title>Report Items - Admin Dashboard - eKapor</title>
+            </Helmet>
             <div>
                 <p className='text-2xl uppercase font-semibold'>Reported Items</p>
                 <p className='mb-4 uppercase text-sm'>manage Reported Items from here</p>

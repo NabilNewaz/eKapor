@@ -20,7 +20,7 @@ const AdvertiseSection = () => {
     const { data: advertiseProducts = [], refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: () => axios
-            .get(`http://localhost:5000/advertise-product`)
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/advertise-product`)
             .then((res) => res.data)
             .catch(function (error) {
                 console.log(error.response.status);
@@ -30,7 +30,7 @@ const AdvertiseSection = () => {
     const { data: userData = [] } = useQuery({
         queryKey: ['users'],
         queryFn: () => axios
-            .get(`http://localhost:5000/users`, {
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/users`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -72,7 +72,7 @@ const AdvertiseSection = () => {
             isPayment: false
         }
 
-        axios.patch(`http://localhost:5000/product-booked/${productDetails._id}`, {
+        axios.patch(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/product-booked/${productDetails._id}`, {
             isBooked: true,
             bookedData
         },

@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# nLearning Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was with React App For Resell Cloths.
 
-## Available Scripts
+Live Site : [https://ekapor-85c8c.web.app](https://ekapor-85c8c.web.app)
 
-In the project directory, you can run:
+### Admin Login Details
+Email : nabilnewaz@gmail.com<br />
+Password: admin1234
 
-### `npm start`
+## Available Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In the project, you can see:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* Home Page
+* Category wise product details
+* Course Enrollment
+* Course CheckOut Page
+* Google And Github Authentication
+* Email And Password Authentication
+* Blogs Page
+* Sign with deferent user Role
+* Stripe Payment
+* Admin Dashboard
+* Seller Dashboard
+* Buyer Dashboard
+* Dashboard Role Wise Privet Route
+* Delete Seller
+* Add Product
+* Advertise Product
+* Admin Delete Product
+* Seller Verification System
+* Course Details Download System
+* Single Page Application
+* Multi Routes Navigation
+ 
+## Uses Technology & Libraries
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
+### React App
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### React Router
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This section has moved here: [https://reactrouter.com/en/main](https://reactrouter.com/en/main)
 
-### Analyzing the Bundle Size
+### React Hot Toast
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This section has moved here: [https://react-hot-toast.com](https://react-hot-toast.com)
 
-### Making a Progressive Web App
+### React To PDF
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This section has moved here: [https://www.npmjs.com/package/react-to-pdf](https://www.npmjs.com/package/react-to-pdf)
 
-### Advanced Configuration
+### React Context API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+This section has moved here: [https://reactjs.org/docs/context.html](https://reactjs.org/docs/context.html)
 
-### Deployment
+### React Icons
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This section has moved here: [https://react-icons.github.io/react-icons](https://react-icons.github.io/react-icons)
 
-### `npm run build` fails to minify
+### Tailwind CSS
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://tailwindcss.com](https://tailwindcss.com)
+
+### daisyUI
+
+This section has moved here: [https://daisyui.com](https://daisyui.com)
+
+### Flowbite Components
+
+This section has moved here: [https://flowbite.com](https://flowbite.com)

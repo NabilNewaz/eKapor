@@ -5,7 +5,7 @@ const useBuyer = uid => {
     const { data: userData = [], isLoading: isBuyerLoading } = useQuery({
         queryKey: ['users'],
         queryFn: () => axios
-            .get(`http://localhost:5000/users`, {
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/users`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }

@@ -37,7 +37,7 @@ const AddProduct = () => {
                     const productcategory = form.productCategory.value;
                     const description = form.description.value;
 
-                    axios.post(`http://localhost:5000/add-product`, {
+                    axios.post(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/add-product`, {
                         "product_category": productcategory,
                         "product_name": productname,
                         "product_img": imagedata.data.url,
@@ -77,7 +77,7 @@ const AddProduct = () => {
     const { data: catagorisName = [] } = useQuery({
         queryKey: ['categories-name'],
         queryFn: () => axios
-            .get(`http://localhost:5000/categories-name`, {
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/categories-name`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }

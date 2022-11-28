@@ -8,7 +8,7 @@ const MyBuyers = () => {
     const { data: mybuyer = [] } = useQuery({
         queryKey: ['my-buyers'],
         queryFn: () => axios
-            .get(`http://localhost:5000/my-buyers`, {
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/my-buyers`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }

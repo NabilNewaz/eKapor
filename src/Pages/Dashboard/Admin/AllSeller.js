@@ -19,7 +19,7 @@ const AllSeller = () => {
     const { data: allSellers = [], refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: () => axios
-            .get(`http://localhost:5000/sellers`, {
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/sellers`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -35,7 +35,7 @@ const AllSeller = () => {
     })
 
     const handleUserDelete = (userID) => {
-        axios.delete(`http://localhost:5000/sellers/${userID}`,
+        axios.delete(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/sellers/${userID}`,
             {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
@@ -53,7 +53,7 @@ const AllSeller = () => {
     }
 
     const handleUserVerify = (userID) => {
-        axios.patch(`http://localhost:5000/verify-seller/${userID}`, {
+        axios.patch(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/verify-seller/${userID}`, {
             isVerified: true
         },
             {

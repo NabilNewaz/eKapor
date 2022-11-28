@@ -8,7 +8,7 @@ const ClothesCategories = () => {
     const { isLoading, data: categories = [] } = useQuery({
         queryKey: ['categories'],
         meta: { headers: { authorization: `Bearer ${localStorage.getItem('token')}` } },
-        queryFn: () => fetch('http://localhost:5000/categories')
+        queryFn: () => fetch('https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/categories')
             .then(res => res.json())
     })
 

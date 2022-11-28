@@ -21,7 +21,7 @@ const Signup = () => {
                 const currentUser = {
                     uid: user.uid
                 }
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -40,7 +40,7 @@ const Signup = () => {
                             role: 'buyer',
                             isVerified: false
                         }
-                        fetch('http://localhost:5000/create-user', {
+                        fetch('https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/create-user', {
                             method: 'POST',
                             headers: {
                                 authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -71,7 +71,7 @@ const Signup = () => {
                 const currentUser = {
                     uid: user.uid
                 }
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -90,7 +90,7 @@ const Signup = () => {
                             role: 'buyer',
                             isVerified: false
                         }
-                        fetch('http://localhost:5000/create-user', {
+                        fetch('https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/create-user', {
                             method: 'POST',
                             headers: {
                                 authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -134,7 +134,7 @@ const Signup = () => {
                     const currentUser = {
                         uid: user.uid
                     }
-                    fetch('http://localhost:5000/jwt', {
+                    fetch('https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/jwt', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'
@@ -154,7 +154,7 @@ const Signup = () => {
                                 role: userRole,
                                 isVerified: false
                             }
-                            fetch('http://localhost:5000/create-user', {
+                            fetch('https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/create-user', {
                                 method: 'POST',
                                 headers: {
                                     authorization: `Bearer ${localStorage.getItem('token')}`,

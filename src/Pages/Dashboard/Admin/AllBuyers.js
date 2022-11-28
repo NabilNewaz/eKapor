@@ -13,7 +13,7 @@ const AllBuyers = () => {
     const { data: allBuyers = [], refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: () => axios
-            .get(`http://localhost:5000/buyers`, {
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/buyers`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -28,7 +28,7 @@ const AllBuyers = () => {
     })
 
     const handleUserDelete = (userID) => {
-        axios.delete(`http://localhost:5000/buyers/${userID}`,
+        axios.delete(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/buyers/${userID}`,
             {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`

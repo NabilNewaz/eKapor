@@ -18,7 +18,7 @@ const ReportedItems = () => {
     const { data: reportedproducts = [], refetch } = useQuery({
         queryKey: ['reported-items'],
         queryFn: () => axios
-            .get(`http://localhost:5000/reported-items`, {
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/reported-items`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -31,7 +31,7 @@ const ReportedItems = () => {
 
 
     const handleProductDelete = (productID) => {
-        axios.delete(`http://localhost:5000/product/${productID}`,
+        axios.delete(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/product/${productID}`,
             {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
@@ -48,7 +48,7 @@ const ReportedItems = () => {
             });
     }
     const handleAdvertiseData = (productID) => {
-        axios.patch(`http://localhost:5000/product-reported/${productID}`, {
+        axios.patch(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/product-reported/${productID}`, {
             isReported: false
         },
             {

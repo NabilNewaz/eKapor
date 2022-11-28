@@ -19,7 +19,7 @@ const MyProducts = () => {
     const { data: myproducts = [], refetch } = useQuery({
         queryKey: ['my-products'],
         queryFn: () => axios
-            .get(`http://localhost:5000/my-products`, {
+            .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/my-products`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -32,7 +32,7 @@ const MyProducts = () => {
 
 
     const handleProductDelete = (productID) => {
-        axios.delete(`http://localhost:5000/product/${productID}`,
+        axios.delete(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/product/${productID}`,
             {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
@@ -58,7 +58,7 @@ const MyProducts = () => {
             isAdvertised = true;
             msg = 'Advertised'
         }
-        axios.patch(`http://localhost:5000/peoduct-advertise/${productID}`, {
+        axios.patch(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/peoduct-advertise/${productID}`, {
             isAdvertised: isAdvertised
         },
             {

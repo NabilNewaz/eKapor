@@ -25,7 +25,7 @@ const CheckoutForm = () => {
         } else {
             console.log('[PaymentMethod]', paymentMethod);
         }
-        // axios.patch(`http://localhost:5000/peoduct-advertise/${productID}`, {
+        // axios.patch(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/peoduct-advertise/${productID}`, {
         //     isAdvertised: isAdvertised
         // },
         //     {

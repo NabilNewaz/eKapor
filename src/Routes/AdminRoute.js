@@ -1,17 +1,22 @@
 import React, { useContext } from 'react';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Contexts/Authprovider/Authprovider';
 import useAdmin from '../Hooks/useAdmin';
+import useBuyer from '../Hooks/useBuyer';
+import useSeller from '../Hooks/useSeller';
 import Spinner from '../Pages/Shared/Spinner/Spinner';
 
 const AdminRoute = ({ children }) => {
 
-    const { user, loading, logOut } = useContext(AuthContext);
-    const [isAdmin] = useAdmin(user.uid)
+    const { user, loading } = useContext(AuthContext);
+    const [isAdmin, isaAminLoading] = useAdmin(user.uid)
+    const [isBuyer] = useBuyer(user.uid)
+    const [isSeller] = useSeller(user.uid)
+
+
     const navigate = useNavigate();
 
-    if (loading) {
+    if (loading || isaAminLoading) {
         return <div className="text-center">
             <Spinner />
         </div>
@@ -21,9 +26,12 @@ const AdminRoute = ({ children }) => {
         return children;
     }
     else {
-        toast.error('You Are Not Admin User');
-        logOut();
-        navigate('/login');
+        if (isBuyer) {
+            navigate('/dashboard/my-order');
+        }
+        if (isSeller) {
+            navigate('/dashboard/add-product')
+        }
     }
 };
 

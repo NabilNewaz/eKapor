@@ -21,9 +21,12 @@ const Dashboard = () => {
         navigate('/dashboard/all-buyers')
     }
     useEffect(() => {
-        isBuyer && navigateBuyerRoute();
-        isSeller && navigateSellerRoute();
-        isAdmin && navigateAdminRoute();
+        const timer = setTimeout(() => {
+            isBuyer && navigateBuyerRoute();
+            isSeller && navigateSellerRoute();
+            isAdmin && navigateAdminRoute();
+        }, 50);
+        return () => clearTimeout(timer);
     });
 };
 

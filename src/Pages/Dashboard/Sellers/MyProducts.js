@@ -1,15 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../../../Contexts/Authprovider/Authprovider';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 const MyProducts = () => {
-    const { logOut } = useContext(AuthContext);
     const [productDetails, setPeoductDetails] = useState({});
     let isAdvertised;
-    // const [isAdvertised, setIsAdvertised] = useState(true);
     let closeDeleteModalBtn = document.getElementById('delete-modal-close');
     const closeDeleteModal = () => {
         closeDeleteModalBtn.click();
@@ -29,10 +26,6 @@ const MyProducts = () => {
             .then((res) => res.data)
             .catch(function (error) {
                 console.log(error.response.status);
-                if (error.response.status === 401 || error.response.status === 403) {
-                    logOut();
-                    toast.error('You are not seller')
-                }
             })
     })
 
@@ -54,15 +47,15 @@ const MyProducts = () => {
                 toast.error('Something Went Wrong')
             });
     }
-
+    let msg;
     const handleAdvertiseData = (productID, prodactAdvertised) => {
         if (prodactAdvertised) {
             isAdvertised = false;
-            console.log(false)
+            msg = 'Unadvertised'
         }
         else {
             isAdvertised = true;
-            console.log(true)
+            msg = 'Advertised'
         }
         axios.patch(`http://localhost:5000/peoduct-advertise/${productID}`, {
             isAdvertised: isAdvertised
@@ -76,7 +69,7 @@ const MyProducts = () => {
             .then(function () {
                 refetch();
                 closeAdvertiseModal();
-                toast.success('Product Advertised')
+                toast.success(`Product ${msg}`)
             })
             .catch(function () {
                 toast.error('Something Went Wrong')

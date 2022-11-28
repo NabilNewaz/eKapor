@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const useSeller = uid => {
-    const { data: userData = [] } = useQuery({
+    const { data: userData = [], isLoading: isSellerLoading } = useQuery({
         queryKey: ['users'],
         queryFn: () => axios
             .get(`http://localhost:5000/users`, {
@@ -16,10 +16,10 @@ const useSeller = uid => {
             })
     })
     if (userData.role === 'seller') {
-        return [true];
+        return [true, isSellerLoading];
     }
     else {
-        return [false];
+        return [false, isSellerLoading];
     }
 };
 

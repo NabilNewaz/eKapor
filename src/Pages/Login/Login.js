@@ -193,7 +193,7 @@ const Login = () => {
                 </div>
                 <div className="form-control  mx-auto max-w-md mt-3">
                     <label className="flex items-center cursor-pointer">
-                        <input type="checkbox" required className="checkbox" /><span className="label-text ml-2">Remember me</span>
+                        <input type="checkbox" className="checkbox" /><span className="label-text ml-2">Remember me</span>
                     </label>
                 </div>
                 <div className='mt-3 flex justify-center'>

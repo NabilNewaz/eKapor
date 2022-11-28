@@ -1,17 +1,20 @@
 import React, { useContext } from 'react';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Contexts/Authprovider/Authprovider';
+import useAdmin from '../Hooks/useAdmin';
+import useBuyer from '../Hooks/useBuyer';
 import useSeller from '../Hooks/useSeller';
 import Spinner from '../Pages/Shared/Spinner/Spinner';
 
 const SellerRoute = ({ children }) => {
 
-    const { user, loading, logOut } = useContext(AuthContext);
-    const [isSeller] = useSeller(user.uid)
+    const { user, loading } = useContext(AuthContext);
+    const [isSeller, isSellerLoading] = useSeller(user.uid)
+    const [isBuyer] = useBuyer(user.uid)
+    const [isAdmin] = useAdmin(user.uid)
     const navigate = useNavigate();
 
-    if (loading) {
+    if (loading || isSellerLoading) {
         return <div className="text-center">
             <Spinner />
         </div>
@@ -21,9 +24,12 @@ const SellerRoute = ({ children }) => {
         return children;
     }
     else {
-        toast.error('You Are Not Seller User');
-        logOut();
-        navigate('/login');
+        if (isBuyer) {
+            navigate('/dashboard/my-order')
+        }
+        if (isAdmin) {
+            navigate('/dashboard/all-buyers')
+        }
     }
 };
 

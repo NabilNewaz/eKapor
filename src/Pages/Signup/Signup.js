@@ -213,13 +213,13 @@ const Signup = () => {
                     <label className="label">
                         <span className="label-text font-semibold">Your Password</span>
                     </label>
-                    <input type="text" id="password" name='password' required placeholder="************" className="input input-bordered w-full" />
+                    <input type="password" id="password" name='password' required placeholder="************" className="input input-bordered w-full" />
                 </div>
                 <div className="form-control w-full mx-auto max-w-md">
                     <label className="label">
                         <span className="label-text font-semibold">Repeat Password</span>
                     </label>
-                    <input type="text" id="repassword" name='repassword' required placeholder="************" className="input input-bordered w-full" />
+                    <input type="password" id="repassword" name='repassword' required placeholder="************" className="input input-bordered w-full" />
                 </div>
                 <div className="form-control w-full mx-auto max-w-md">
                     <label className="label">

@@ -21,7 +21,7 @@ const Login = () => {
         providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log(user)
+                // console.log(user)
                 const currentUser = {
                     uid: user.uid
                 }
@@ -59,7 +59,7 @@ const Login = () => {
                                 return response.json();
                             })
                             .then(data => {
-                                console.log(user);
+                                // console.log(user);
                                 toast.success('Successfully Sign In')
                                 navigate(from, { replace: true });
                             })
@@ -84,7 +84,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
+                        // console.log(data);
                         localStorage.setItem('token', data.token);
                         const userData = {
                             uid: user.uid,
@@ -110,7 +110,7 @@ const Login = () => {
                                 return response.json();
                             })
                             .then(data => {
-                                console.log(user);
+                                // console.log(user);
                                 toast.success('Successfully Sign In')
                                 navigate(from, { replace: true });
                             })
@@ -141,7 +141,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
+                        // console.log(data);
                         localStorage.setItem('token', data.token);
                         const userData = {
                             uid: user.uid,
@@ -167,7 +167,7 @@ const Login = () => {
                                 return response.json();
                             })
                             .then(data => {
-                                console.log(user);
+                                // console.log(user);
                                 toast.success('Successfully Sign In')
                                 navigate(from, { replace: true });
                             })

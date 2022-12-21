@@ -18,12 +18,8 @@ const MyOrder = () => {
     const closeUnbookedModal = () => {
         closeUnbookedModalBtn.click();
     }
-    // let closeAdvertiseModalBtn = document.getElementById('advertise-modal-close')
-    // const closePaymentModal = () => {
-    //     closeAdvertiseModalBtn.click();
-    // }
     const { data: myorderproducts = [], refetch } = useQuery({
-        queryKey: ['my-orders'],
+        queryKey: ['my-orders', 'product-selled'],
         queryFn: () => axios
             .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/my-orders`, {
                 headers: {
@@ -35,6 +31,16 @@ const MyOrder = () => {
                 console.log(error.response.status);
             })
     })
+
+    let closepayModalBtn = document.getElementById('pay-modal-close');
+    const closePayModal = () => {
+        closepayModalBtn.click();
+        refetch();
+    }
+    // let closeAdvertiseModalBtn = document.getElementById('advertise-modal-close')
+    // const closePaymentModal = () => {
+    //     closeAdvertiseModalBtn.click();
+    // }
 
     const handleProductUnbooked = (productID) => {
         axios.patch(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/product-booked/${productID}`, {
@@ -101,12 +107,16 @@ const MyOrder = () => {
                             </div>
                         </div>
                         <div>
-                            <input type="checkbox" id="productadvertiseConferm-modal" className="modal-toggle" />
+                            <input type="checkbox" id="payment-modal" className="modal-toggle" />
                             <div className="modal">
                                 <div className="modal-box">
+                                    <label id="pay-modal-close" htmlFor="payment-modal" type="button" className="cursor-pointer absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
+                                        <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                                        <span className="sr-only">Close modal</span>
+                                    </label>
                                     <p className='text-xl uppercase font-semibold mb-3'>Make Payment</p>
                                     <Elements stripe={stripePromise}>
-                                        <CheckoutForm />
+                                        <CheckoutForm productDetails={productDetails} closePayModal={closePayModal} />
                                     </Elements>
                                 </div>
                             </div>
@@ -151,8 +161,9 @@ const MyOrder = () => {
                                         <td>{product.product_resellPrice}</td>
                                         <th>
                                             <th>
-                                                <label onClick={() => setPeoductDetails(product)} htmlFor="productadvertiseConferm-modal" disabled={product.bookedData?.isPayment ? 'disabled' : null} className={product?.bookedData?.isPayment ? 'btn badge-info btn-xs text-white' : 'btn badge-info btn-xs text-white'}>{(product?.bookedData?.isPayment) ? 'Paid' : 'Pay Now'}</label>
-                                                <label onClick={() => setPeoductDetails(product)} htmlFor="productunbookedConferm-modal" className="btn btn-error btn-xs text-white ml-2">UnBooked</label>
+                                                <label onClick={() => setPeoductDetails(product)} htmlFor="payment-modal" disabled={product.bookedData?.isPayment ? 'disabled' : null} className={product?.bookedData?.isPayment ? 'btn badge-info btn-xs text-white' : 'btn badge-info btn-xs text-white'}>{(product?.bookedData?.isPayment) ? 'Paid' : 'Pay Now'}</label>
+                                                <label onClick={() => setPeoductDetails(product)} htmlFor="productunbookedConferm-modal" className={product?.bookedData?.isPayment ? 'hidden' : 'btn btn-error btn-xs text-white ml-2'}>UnBooked</label>
+                                                <label onClick={() => navigator.clipboard.writeText(product?.bookedData?.tnxID)} className={product?.bookedData?.isPayment ? 'btn btn-error btn-xs text-white ml-2' : 'hidden'}>{product?.bookedData?.tnxID}</label>
                                             </th>
                                         </th>
                                     </tr>

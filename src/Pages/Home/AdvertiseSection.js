@@ -18,7 +18,7 @@ const AdvertiseSection = () => {
         closeModalBtn.click();
     }
     const { data: advertiseProducts = [], refetch } = useQuery({
-        queryKey: ['sellers'],
+        queryKey: ['sellers', 'advertise-product'],
         queryFn: () => axios
             .get(`https://b612-used-products-resale-server-side-nabil-newaz.vercel.app/advertise-product`)
             .then((res) => res.data)
@@ -178,27 +178,29 @@ const AdvertiseSection = () => {
                     modules={[FreeMode, Autoplay]}
                     className="mySwiper"
                 >
-                    {advertiseProducts.map(advertiseProduct =>
-                        <div>
-                            <SwiperSlide>
-                                <div className="card w-90 bg-base-100 shadow-xl image-full">
-                                    <figure><img src={advertiseProduct.product_img} alt="Shoes" /></figure>
-                                    <div className="card-body">
-                                        <h2 className="card-title text-2xl">{advertiseProduct.product_name}</h2>
-                                        <p className='grow-0 font-bold text-lg mb-2 mt-2'><span className='font-semibold'>Resell Price: </span>{advertiseProduct.product_resellPrice}</p>
-                                        <p className='grow-0'><span>Original Price: </span>{advertiseProduct.product_originalPrice}</p>
-                                        <p className='grow-0'><span>Use Time: </span>{advertiseProduct.product_useTime}</p>
-                                        <p className='grow-0'><span>Location: </span>{advertiseProduct.product_location}</p>
-                                        <p className='grow-0 flex items-center'><span className='mr-1'>Seller: </span>{(advertiseProduct?.seller_details[0]?.displayName) ? advertiseProduct?.seller_details[0]?.displayName : 'No Seller Details'}<span className={(advertiseProduct?.seller_details[0]?.isVerified) ? 'block' : 'hidden'}><MdVerified className='ml-1 text-white' /></span></p>
-                                        <p className='grow-0'><span>Description: </span>{advertiseProduct.product_description ? advertiseProduct.product_description : 'No Description Added'}</p>
-                                        <div className="card-actions justify-end">
-                                            <label onClick={() => { setPeoductDetails(advertiseProduct); hadelUserNotLogin() }} htmlFor="booknow-modal" className="btn btn-primary">Book Now</label>
+                    {console.log(advertiseProducts)}
+                    {
+                        advertiseProducts.map(advertiseProduct =>
+                            <div>
+                                <SwiperSlide>
+                                    <div className="card w-90 bg-base-100 shadow-xl image-full">
+                                        <figure><img src={advertiseProduct?.product_img} alt="Shoes" /></figure>
+                                        <div className="card-body">
+                                            <h2 className="card-title text-2xl">{advertiseProduct?.product_name}</h2>
+                                            <p className='grow-0 font-bold text-lg mb-2 mt-2'><span className='font-semibold'>Resell Price: </span>{advertiseProduct?.product_resellPrice}</p>
+                                            <p className='grow-0'><span>Original Price: </span>{advertiseProduct?.product_originalPrice}</p>
+                                            <p className='grow-0'><span>Use Time: </span>{advertiseProduct?.product_useTime}</p>
+                                            <p className='grow-0'><span>Location: </span>{advertiseProduct?.product_location}</p>
+                                            <p className='grow-0 flex items-center'><span className='mr-1'>Seller: </span>{(advertiseProduct?.seller_details[0]?.displayName) ? advertiseProduct?.seller_details[0]?.displayName : 'No Seller Details'}<span className={(advertiseProduct?.seller_details[0]?.isVerified) ? 'block' : 'hidden'}><MdVerified className='ml-1 text-white' /></span></p>
+                                            <p className='grow-0'><span>Description: </span>{advertiseProduct?.product_description ? advertiseProduct?.product_description : 'No Description Added'}</p>
+                                            <div className="card-actions justify-end">
+                                                <label onClick={() => { setPeoductDetails(advertiseProduct); hadelUserNotLogin() }} htmlFor="booknow-modal" className="btn btn-primary">Book Now</label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </SwiperSlide>
-                        </div>
-                    )}
+                                </SwiperSlide>
+                            </div>
+                        )}
                 </Swiper>
             </div>
         </div>
